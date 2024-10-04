@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { BoardsModule } from './boards/boards.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 import * as path from 'path';
 
 @Module({
@@ -19,12 +20,13 @@ import * as path from 'path';
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         entities: [path.join(__dirname, '**/*.entity.{js, ts}')],
-        synchronize: false,
+        synchronize: true,
         logging: true,
         timezone: 'KST',
       }),
     }),
     BoardsModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
